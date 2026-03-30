@@ -7,25 +7,26 @@ const mongoUri = process.env.MONGODB_URI || "mongodb://localhost:27017/better-au
 const client = new MongoClient(mongoUri);
 const db = client.db();
 
+
 export const auth = betterAuth({
   database: mongodbAdapter(db),
 
   emailAndPassword: { 
     enabled: true, 
   }, 
-  baseURL: process.env.BETTER_AUTH_URL, 
-    socialProviders: {
-        google: { 
-            prompt: "select_account", 
-            clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID, 
-            clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET,
-        }, 
-        github:{
-            clientId: process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID,
-            clientSecret: process.env.NEXT_PUBLIC_GITHUB_CLIENT_SECRET,
-        }
+  baseURL: process.env.BETTER_AUTH_URL,
+  socialProviders: {
+    google: {
+      prompt: "select_account",
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     },
-plugins: [nextCookies()],
+    github: {
+      clientId: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    },
+  },
+  plugins: [nextCookies()],
 
 
 });
